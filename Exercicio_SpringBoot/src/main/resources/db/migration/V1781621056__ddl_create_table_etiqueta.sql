@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS etiqueta
+(
+    id   BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL
+);
