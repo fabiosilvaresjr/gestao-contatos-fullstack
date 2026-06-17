@@ -1,7 +1,64 @@
 package com.example.exercicio_springboot.repository;
 
+import com.example.exercicio_springboot.dto.ContatoDTO;
 import com.example.exercicio_springboot.model.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-public interface ContatoRepository  extends JpaRepository<Contato, Long> {
+import java.util.List;
+
+@Repository
+public interface ContatoRepository extends JpaRepository<Contato, Long> {
+
+    // Listar todos direto mapeando pro DTO
+    @Query("""
+        select new com.example.exercicio_springboot.dto.ContatoDTO(
+            c.id,
+            c.nome,
+            c.favorito
+        )
+        from Contato c
+    """)
+    List<ContatoDTO> listarTodosCustom();
+
+    // Query buscar por nome
+    @Query("""
+        select new com.example.exercicio_springboot.dto.ContatoDTO(
+            c.id,
+            c.nome,
+            c.favorito
+        )
+        from Contato c
+        where lower(c.nome) like lower(concat('%', :nome, '%'))
+    """)
+    List<ContatoDTO> buscarPorNome(@Param("nome") String nome);
+
+    // Query para buscar por ID mapeando pro DTO
+    @Query("""
+        select new com.example.exercicio_springboot.dto.ContatoDTO(
+            c.id,
+            c.nome,
+            c.favorito
+        )
+        from Contato c
+        where c.id = :id
+    """)
+    ContatoDTO buscarPorIdCustom(@Param("id") Long id);
+
+    // Query atualizar dados
+    @Modifying
+    @Query("""
+        update Contato c
+        set c.nome = :nome, c.favorito = :favorito
+        where c.id = :id
+    """)
+    int atualizarContato(@Param("id") Long id, @Param("nome") String nome, @Param("favorito") Boolean favorito);
+
+    // Query deletar
+    @Modifying
+    @Query("delete from Contato c where c.id = :id")
+    void deletarPorIdCustom(@Param("id") Long id);
 }
