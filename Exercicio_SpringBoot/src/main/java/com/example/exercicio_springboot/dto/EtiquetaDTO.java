@@ -9,19 +9,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-public class ContatoDTO {
+public class EtiquetaDTO {
 
     private Long id;
 
-    @NotBlank(message = "O nome é obrigatório e não pode estar em branco.")
+    @NotBlank(message = "O nome da etiqueta é obrigatório.")
     private String nome;
 
-    private Boolean favorito;
-
-    // Construtor que recebe a Entidade do banco e extrai
-    public ContatoDTO(Long id, String nome, Boolean favorito) {
+    // Construtor com argumentos (Obrigatório para Query no GET)
+    public EtiquetaDTO(Long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.favorito = favorito;
     }
 }

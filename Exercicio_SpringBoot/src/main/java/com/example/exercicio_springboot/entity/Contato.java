@@ -1,13 +1,17 @@
-package com.example.exercicio_springboot.model;
+package com.example.exercicio_springboot.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+
 public class Contato {
 
     @Id
@@ -19,15 +23,10 @@ public class Contato {
     private Boolean favorito = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grupos_id")
+    @JoinColumn(name = "grupo_id")
     private Grupo grupo;
 
-    @ManyToMany
-    @JoinTable(
-            name = "contato_etiqueta",
-            joinColumns = @JoinColumn(name = "contato_id"),
-            inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
-    )
-    private List<Etiqueta> etiquetas;
+    @OneToMany(mappedBy = "contato")
+    private List<ContatoEtiqueta> contatoEtiquetas = new ArrayList<>();
 }
 

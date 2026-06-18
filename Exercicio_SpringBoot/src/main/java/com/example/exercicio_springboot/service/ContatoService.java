@@ -1,7 +1,7 @@
 package com.example.exercicio_springboot.service;
 
 import com.example.exercicio_springboot.dto.ContatoDTO;
-import com.example.exercicio_springboot.model.Contato;
+import com.example.exercicio_springboot.entity.Contato;
 import com.example.exercicio_springboot.repository.ContatoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

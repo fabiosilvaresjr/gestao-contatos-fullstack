@@ -1,7 +1,7 @@
 package com.example.exercicio_springboot.repository;
 
 import com.example.exercicio_springboot.dto.ContatoDTO;
-import com.example.exercicio_springboot.model.Contato;
+import com.example.exercicio_springboot.entity.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

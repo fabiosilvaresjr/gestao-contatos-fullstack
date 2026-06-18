@@ -1,13 +1,15 @@
-package com.example.exercicio_springboot.model;
+package com.example.exercicio_springboot.entity;
 
 import jakarta.persistence.*;
-import lombok.Generated;
+import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+
 public class Grupo {
 
     @Id
