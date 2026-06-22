@@ -28,8 +28,15 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/contato").hasRole("ADMIN") // Exemplo de rota protegida
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() //depois de ter um primeiro usuário, apenas ADM pode registrar
+                        .requestMatchers(HttpMethod.POST, "/contato", "/contato/*").hasRole("ADMIN") // rota protegida
+                        .requestMatchers(HttpMethod.POST, "/grupo/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/etiqueta/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/contato/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/etiqueta/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/grupo/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/etiqueta/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/grupo/*").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

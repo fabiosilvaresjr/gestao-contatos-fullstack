@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="" />
+    <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT.">
+      <change afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/security/SecurityConfigurations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/security/SecurityConfigurations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/TokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621700__ddl_create_table_usuario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621700__ddl_create_table_usuario.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +30,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPENED",
+    "assignee": {
+      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
+      "username": "fabio.junior2",
+      "fullname": "Fabio Almeida Silvares Junior"
+    }
+  }
+}]]></component>
+  <component name="GitLabMergeRequestsSettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "first": "https://gitlab.com/fabio.junior2/Exercicio_SpringBoot.git",
+    "second": "8a519428-da0d-412c-8680-3ad2c4f1d9c9"
+  }
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -45,8 +71,11 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/fabio.junior/Desktop/Exercicio_SpringBoot",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.gitlab.GitLabSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -113,11 +142,16 @@
       <option name="presentableId" value="Default" />
       <updated>1781624532549</updated>
       <workItem from="1781624533586" duration="248000" />
-      <workItem from="1781891069659" duration="9072000" />
+      <workItem from="1781891069659" duration="9564000" />
+      <workItem from="1782140476299" duration="16456000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT." />
   </component>
 </project>

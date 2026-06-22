@@ -16,7 +16,7 @@ import java.time.ZoneOffset;
 public class TokenService {
 
     // Se não tiver essa propriedade no application.properties, ele usa o padrão "secret-chave"
-    @Value("${api.security.token.secret:secret-chave}")
+    @Value("${api.security.token.secret:secrety-key}")
     private String secret;
 
     public String generateToken(Usuario usuario) {
@@ -47,7 +47,7 @@ public class TokenService {
     }
 
     private Instant genExpirationDate() {
-        // Define que o token vai expirar em 2 horas (padrão que a Fernanda usa)
+        // token vai expirar em 2 horas
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 }
