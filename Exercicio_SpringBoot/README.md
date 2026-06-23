@@ -1,6 +1,6 @@
 # API de Gestão de Contatos
 
-Uma API RESTful desenvolvida em **Spring Boot** para o gerenciamento de contatos, organizados por grupos e etiquetas. O sistema conta com uma infraestrutura robusta de segurança, utilizando autenticação Stateless com **JWT (JSON Web Token)** e controle de acesso baseado em perfis (Roles).
+Uma API RESTful desenvolvida em **Spring Boot** para o gerenciamento de contatos, organizados por grupos e etiquetas. O sistema conta com uma infraestrutura robusta de segurança, utilizando autenticação Stateless com **JWT (JSON Web Token)**, controle de acesso baseado em perfis (Roles) e tratamento inteligente de exceções.
 
 ---
 
@@ -33,12 +33,22 @@ O sistema utiliza controle de acesso baseado em Roles (`ADMIN` e `USER`). Todas 
 
 ---
 
-## ️ Como executar o projeto localmente
+## Tratamento Global de Exceções
+
+A API utiliza um interceptador global (`@RestControllerAdvice`) para capturar erros e devolver respostas JSON padronizadas e amigáveis ao cliente, evitando a quebra do servidor.
+
+* **Erro 400 (Bad Request):** Quando dados obrigatórios não são enviados no JSON (validados via `@Valid`), a API retorna uma lista com os campos inválidos.
+* **Erro 404 (Not Found):** Buscas por IDs inexistentes são interceptadas (`EntityNotFoundException`) e retornam o status 404 automaticamente.
+
+---
+
+## Como executar o projeto localmente
 
 1. Clone o repositório para a sua máquina:
-   ```bash
-   git clone <url-do-repositorio>
-   ```
+```bash
+git clone <url-do-repositorio>
+```
+
 2. Abra o projeto na sua IDE de preferência (IntelliJ, Eclipse, VS Code).
 
 3. Certifique-se de ter o Java JDK instalado (versão compatível com o projeto).
@@ -49,15 +59,16 @@ O sistema utiliza controle de acesso baseado em Roles (`ADMIN` e `USER`). Todas 
 
 6. A API estará disponível em http://localhost:8080.
 
+---
+
 ## Como testar no Postman
 
 1. Faça uma requisição POST para http://localhost:8080/auth/register enviando no Body (JSON):
-
-```JSON
+```json
 {
-"login": "seu_email@email.com",
-"password": "sua_senha",
-"role": "ADMIN"
+   "login": "seu_email@email.com",
+   "password": "sua_senha",
+   "role": "ADMIN"
 }
 ```
 

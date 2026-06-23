@@ -21,7 +21,7 @@ public class ContatoController {
 
     // POST /contatos -> Retorna 201 Created
     @PostMapping
-    public ResponseEntity<ContatoDTO> criar(@RequestBody ContatoDTO dto) {
+    public ResponseEntity<ContatoDTO> criar(@RequestBody @Valid ContatoDTO dto) {
         ContatoDTO contatoSalvo = contatoService.salvar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(contatoSalvo);
     }
@@ -32,13 +32,10 @@ public class ContatoController {
         return ResponseEntity.ok(contatoService.listarTodos()); //pode porque vai lsitar os dto do service
     }
 
-    // GET /contatos/{id} -> Retorna 200 OK ou 404 Not Found
+    // GET /contatos/{id} -> Retorna 200 OK, ou exception faz o 404 Not Found
     @GetMapping("/{id}")
     public ResponseEntity<ContatoDTO> buscarPorId(@PathVariable Long id) {
         ContatoDTO dto = contatoService.buscarPorId(id);
-        if (dto == null) {
-            return ResponseEntity.notFound().build(); // Retorna 404
-        }
         return ResponseEntity.ok(dto); // Retorna 200
     }
 

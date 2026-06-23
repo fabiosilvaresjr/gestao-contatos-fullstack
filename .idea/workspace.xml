@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT.">
-      <change afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/security/SecurityConfigurations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/security/SecurityConfigurations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621700__ddl_create_table_usuario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621700__ddl_create_table_usuario.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/ContatoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/ContatoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/ContatoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/ContatoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +49,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2,
   &quot;fromUser&quot;: false
@@ -70,6 +69,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
@@ -143,8 +143,17 @@
       <updated>1781624532549</updated>
       <workItem from="1781624533586" duration="248000" />
       <workItem from="1781891069659" duration="9564000" />
-      <workItem from="1782140476299" duration="16456000" />
+      <workItem from="1782140476299" duration="24225000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT.">
+      <option name="closed" value="true" />
+      <created>1782163053997</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1782163053997</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
