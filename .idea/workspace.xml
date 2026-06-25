@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT.">
-      <change afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/exception/GlobalExceptionHandler.java" afterDir="false" />
+    <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="feat: implementar tratamento global de excecoes e refatorar servicos&#10;&#10;- Criado GlobalExceptionHandler (@RestControllerAdvice) para padronizar respostas de erro da API.&#10;- Mapeado erro 400 (MethodArgumentNotValidException) para retornar lista limpa de campos inválidos.&#10;- Mapeado erro 404 (EntityNotFoundException) para retornos padronizados de recursos não encontrados.&#10;- Refatorado ContatoService para utilizar .orElseThrow() nas buscas por ID, eliminando redundâncias de validação manual e if/else.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3f9ab1ef-081e-46f6-b1b0-0172d6ea9a2e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3f9ab1ef-081e-46f6-b1b0-0172d6ea9a2e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/ContatoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/ContatoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/ContatoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/ContatoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621700__ddl_create_table_usuario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621700__ddl_create_table_usuario.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,22 +25,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPENED",
-    "assignee": {
-      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
-      "username": "fabio.junior2",
-      "fullname": "Fabio Almeida Silvares Junior"
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;fabio.junior2&quot;,
+      &quot;fullname&quot;: &quot;Fabio Almeida Silvares Junior&quot;
     }
   }
-}]]></component>
-  <component name="GitLabMergeRequestsSettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "first": "https://gitlab.com/fabio.junior2/Exercicio_SpringBoot.git",
-    "second": "8a519428-da0d-412c-8680-3ad2c4f1d9c9"
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;https://gitlab.com/fabio.junior2/Exercicio_SpringBoot.git&quot;,
+    &quot;second&quot;: &quot;8a519428-da0d-412c-8680-3ad2c4f1d9c9&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -61,29 +60,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ExercicioSpringBootApplication.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/fabio.junior/Desktop/Exercicio_SpringBoot",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.gitlab.GitLabSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ExercicioSpringBootApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/fabio.junior/Desktop/Exercicio_SpringBoot&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.gitlab.GitLabSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\fabio.junior\Desktop\Exercicio_SpringBoot\Exercicio_SpringBoot\src\main\java\com\example\exercicio_springboot" />
@@ -143,7 +142,8 @@
       <updated>1781624532549</updated>
       <workItem from="1781624533586" duration="248000" />
       <workItem from="1781891069659" duration="9564000" />
-      <workItem from="1782140476299" duration="24225000" />
+      <workItem from="1782140476299" duration="26175000" />
+      <workItem from="1782407624229" duration="2910000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT.">
       <option name="closed" value="true" />
@@ -153,7 +153,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782163053997</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: implementar tratamento global de excecoes e refatorar servicos&#10;&#10;- Criado GlobalExceptionHandler (@RestControllerAdvice) para padronizar respostas de erro da API.&#10;- Mapeado erro 400 (MethodArgumentNotValidException) para retornar lista limpa de campos inválidos.&#10;- Mapeado erro 404 (EntityNotFoundException) para retornos padronizados de recursos não encontrados.&#10;- Refatorado ContatoService para utilizar .orElseThrow() nas buscas por ID, eliminando redundâncias de validação manual e if/else.">
+      <option name="closed" value="true" />
+      <created>1782248263393</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1782248263393</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +169,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT." />
+    <MESSAGE value="feat: implementar tratamento global de excecoes e refatorar servicos&#10;&#10;- Criado GlobalExceptionHandler (@RestControllerAdvice) para padronizar respostas de erro da API.&#10;- Mapeado erro 400 (MethodArgumentNotValidException) para retornar lista limpa de campos inválidos.&#10;- Mapeado erro 404 (EntityNotFoundException) para retornos padronizados de recursos não encontrados.&#10;- Refatorado ContatoService para utilizar .orElseThrow() nas buscas por ID, eliminando redundâncias de validação manual e if/else." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implementar tratamento global de excecoes e refatorar servicos&#10;&#10;- Criado GlobalExceptionHandler (@RestControllerAdvice) para padronizar respostas de erro da API.&#10;- Mapeado erro 400 (MethodArgumentNotValidException) para retornar lista limpa de campos inválidos.&#10;- Mapeado erro 404 (EntityNotFoundException) para retornos padronizados de recursos não encontrados.&#10;- Refatorado ContatoService para utilizar .orElseThrow() nas buscas por ID, eliminando redundâncias de validação manual e if/else." />
   </component>
 </project>
