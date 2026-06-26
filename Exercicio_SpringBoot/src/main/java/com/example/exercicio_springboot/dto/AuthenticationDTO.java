@@ -1,4 +1,5 @@
 package com.example.exercicio_springboot.dto;
 
-public record AuthenticationDTO(String login, String password) {
-}
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthenticationDTO(@NotBlank String login, @NotBlank String password) {}

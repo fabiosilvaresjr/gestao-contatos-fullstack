@@ -15,8 +15,7 @@ import java.time.ZoneOffset;
 @Service
 public class TokenService {
 
-    // Se não tiver essa propriedade no application.properties, ele usa o padrão "secret-chave"
-    @Value("${api.security.token.secret:secrety-key}")
+    @Value("${api.security.token.secret}")
     private String secret;
 
     public String generateToken(Usuario usuario) {

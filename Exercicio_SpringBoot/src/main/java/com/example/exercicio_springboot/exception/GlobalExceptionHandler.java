@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     //  Erro 403
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<MensagemErro> tratarErro403(AccessDeniedException ex) {
-        // Retorna status 403 FORBIDDEN com uma mensagem limpa e profissional
+
         var erro = new MensagemErro("Acesso Negado", "Você não tem permissão para realizar esta ação.");
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
     }
@@ -43,4 +43,13 @@ public class GlobalExceptionHandler {
 
     // DTO interno para mensagens personalizadas
     private record MensagemErro(String erro, String mensagem) {}
+
+    // Erro 500
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<MensagemErro> tratarErro500(Exception ex) {
+        ex.printStackTrace();
+
+        var erro = new MensagemErro("Erro Interno", "Ocorreu um erro inesperado no servidor. Tente novamente mais tarde.");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
+    }
 }
