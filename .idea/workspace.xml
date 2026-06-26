@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="fix: corrigir tipagem do id do usuario para suportar uuid">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3f9ab1ef-081e-46f6-b1b0-0172d6ea9a2e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3f9ab1ef-081e-46f6-b1b0-0172d6ea9a2e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3f9ab1ef-081e-46f6-b1b0-0172d6ea9a2e/storage_v2/_src_/database/exercicio_db.OhAryQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3f9ab1ef-081e-46f6-b1b0-0172d6ea9a2e/storage_v2/_src_/database/exercicio_db.OhAryQ/schema/public.abK9xQ.meta" afterDir="false" />
+    <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="refactor: aplicar melhorias de seguranca e design da revisao de codigo&#10;&#10;- Tratamento de exceção 500 adicionado no GlobalExceptionHandler.&#10;- Rotas do SecurityConfigurations ajustadas para o padrão plural (REST).&#10;- Endpoint de registro blindado para forçar perfil USER padrão.&#10;- Refatorado AuthenticationController para injetar PasswordEncoder e usar Generics nas respostas.&#10;- Adicionadas validações (@NotBlank) nos DTOs de autenticação.&#10;- Removido fallback inseguro da chave secreta do JWT.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/dto/AuthenticationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/dto/AuthenticationDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/dto/RegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/dto/RegisterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/GrupoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/GrupoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Contato.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Contato.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/security/SecurityConfigurations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/security/SecurityConfigurations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621614__ddl_create_table_contato_etiqueta.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/resources/db/migration/V1781621614__ddl_create_table_contato_etiqueta.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/repository/GrupoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/repository/GrupoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/GrupoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/GrupoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +145,7 @@
       <workItem from="1781624533586" duration="248000" />
       <workItem from="1781891069659" duration="9564000" />
       <workItem from="1782140476299" duration="26175000" />
-      <workItem from="1782407624229" duration="14450000" />
+      <workItem from="1782407624229" duration="16502000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT.">
       <option name="closed" value="true" />
@@ -178,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782410602768</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refactor: aplicar melhorias de seguranca e design da revisao de codigo&#10;&#10;- Tratamento de exceção 500 adicionado no GlobalExceptionHandler.&#10;- Rotas do SecurityConfigurations ajustadas para o padrão plural (REST).&#10;- Endpoint de registro blindado para forçar perfil USER padrão.&#10;- Refatorado AuthenticationController para injetar PasswordEncoder e usar Generics nas respostas.&#10;- Adicionadas validações (@NotBlank) nos DTOs de autenticação.&#10;- Removido fallback inseguro da chave secreta do JWT.">
+      <option name="closed" value="true" />
+      <created>1782500855677</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1782500855677</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +189,7 @@
     <MESSAGE value="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT." />
     <MESSAGE value="feat: implementar tratamento global de excecoes e refatorar servicos&#10;&#10;- Criado GlobalExceptionHandler (@RestControllerAdvice) para padronizar respostas de erro da API.&#10;- Mapeado erro 400 (MethodArgumentNotValidException) para retornar lista limpa de campos inválidos.&#10;- Mapeado erro 404 (EntityNotFoundException) para retornos padronizados de recursos não encontrados.&#10;- Refatorado ContatoService para utilizar .orElseThrow() nas buscas por ID, eliminando redundâncias de validação manual e if/else." />
     <MESSAGE value="fix: corrigir tipagem do id do usuario para suportar uuid" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: corrigir tipagem do id do usuario para suportar uuid" />
+    <MESSAGE value="refactor: aplicar melhorias de seguranca e design da revisao de codigo&#10;&#10;- Tratamento de exceção 500 adicionado no GlobalExceptionHandler.&#10;- Rotas do SecurityConfigurations ajustadas para o padrão plural (REST).&#10;- Endpoint de registro blindado para forçar perfil USER padrão.&#10;- Refatorado AuthenticationController para injetar PasswordEncoder e usar Generics nas respostas.&#10;- Adicionadas validações (@NotBlank) nos DTOs de autenticação.&#10;- Removido fallback inseguro da chave secreta do JWT." />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: aplicar melhorias de seguranca e design da revisao de codigo&#10;&#10;- Tratamento de exceção 500 adicionado no GlobalExceptionHandler.&#10;- Rotas do SecurityConfigurations ajustadas para o padrão plural (REST).&#10;- Endpoint de registro blindado para forçar perfil USER padrão.&#10;- Refatorado AuthenticationController para injetar PasswordEncoder e usar Generics nas respostas.&#10;- Adicionadas validações (@NotBlank) nos DTOs de autenticação.&#10;- Removido fallback inseguro da chave secreta do JWT." />
   </component>
 </project>
