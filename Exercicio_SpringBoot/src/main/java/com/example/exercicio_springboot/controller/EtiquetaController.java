@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/etiquetas")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EtiquetaController {
 
     private final EtiquetaService etiquetaService;

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contatos")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ContatoController {
 
     private final ContatoService contatoService;
