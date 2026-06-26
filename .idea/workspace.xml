@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ada21de2-3a38-4634-921d-4e87674e880e" name="Changes" comment="refactor: aplicar melhorias de seguranca e design da revisao de codigo&#10;&#10;- Tratamento de exceção 500 adicionado no GlobalExceptionHandler.&#10;- Rotas do SecurityConfigurations ajustadas para o padrão plural (REST).&#10;- Endpoint de registro blindado para forçar perfil USER padrão.&#10;- Refatorado AuthenticationController para injetar PasswordEncoder e usar Generics nas respostas.&#10;- Adicionadas validações (@NotBlank) nos DTOs de autenticação.&#10;- Removido fallback inseguro da chave secreta do JWT.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/GrupoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/GrupoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Contato.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/entity/Contato.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/repository/GrupoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/repository/GrupoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/GrupoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/GrupoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/EtiquetaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/controller/EtiquetaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/repository/EtiquetaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/repository/EtiquetaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/EtiquetaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exercicio_SpringBoot/src/main/java/com/example/exercicio_springboot/service/EtiquetaService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +144,7 @@
       <workItem from="1781624533586" duration="248000" />
       <workItem from="1781891069659" duration="9564000" />
       <workItem from="1782140476299" duration="26175000" />
-      <workItem from="1782407624229" duration="16502000" />
+      <workItem from="1782407624229" duration="17849000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implementar autorizacao por roles nas rotas da API: \n - Adicionados bloqueios granulares no SecurityConfigurations para controle de acesso (RBAC).\n- Restrito acesso aos metodos POST, PUT/PATCH e DELETE das rotas /contatos, /grupos e /etiquetas apenas para usuarios com role ADMIN.\n- Mantido o acesso de leitura (GET) aberto para qualquer usuario autenticado via token JWT.">
       <option name="closed" value="true" />

@@ -47,7 +47,7 @@ public class GrupoController {
         return ResponseEntity.ok().build();
     }
 
-    // DELETE /contatos/{id} -> Retorna 204 No Content
+    // DELETE /grupos/{id} -> Retorna 204 No Content
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         grupoService.deletar(id);
