@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ class ContatoServiceTest {
         contatoEntity.setFavorito(false);
     }
 
-    // Cenário 1: Sucesso na criação (verificar chamada de save e retorno)
+    // Sucesso na criação (verificar chamada de save e retorno)
     @Test
     void deveSalvarContatoComSucesso() {
         // Arrange (Configuração do Stub)
@@ -88,4 +89,57 @@ class ContatoServiceTest {
         // Verifica se tentou buscar no banco
         verify(contatoRepository, times(1)).buscarPorIdCustom(99L);
     }
+
+    // Listar todos os contatos
+    @Test
+    void deveListarTodosOsContatos() {
+        // Arrange: Ensina o banco a retornar uma lista com nosso DTO de mentira
+        when(contatoRepository.listarTodosCustom()).thenReturn(List.of(contatoDTO));
+
+        // Act: Executa o metodo
+        List<ContatoDTO> resultado = contatoService.listarTodos();
+
+        // Assert: Verifica se a lista não está vazia e tem o tamanho certo
+        assertNotNull(resultado);
+        assertEquals(1, resultado.size());
+        assertEquals("João da Silva", resultado.get(0).getNome());
+
+        verify(contatoRepository, times(1)).listarTodosCustom();
+    }
+
+    // Atualizar com Sucesso
+    @Test
+    void deveAtualizarContatoComSucesso() {
+        // Arrange
+        Long id = 1L;
+        ContatoDTO dtoAtualizado = new ContatoDTO();
+        dtoAtualizado.setNome("Nome Modificado");
+        dtoAtualizado.setFavorito(true);
+
+        // Verifica se o contato existe antes de atualizar
+        when(contatoRepository.buscarPorIdCustom(id)).thenReturn(contatoDTO);
+
+        // Act
+        contatoService.atualizar(id, dtoAtualizado);
+
+        // Assert: Verifica se o repositório foi chamado passando exatamente os dados novos
+        verify(contatoRepository, times(1)).atualizarContato(id, "Nome Modificado", true);
+    }
+
+    // Deletar com Sucesso
+    @Test
+    void deveDeletarContatoComSucesso() {
+        // Arrange
+        Long id = 1L;
+
+        // Verifica se o contato existe antes de apagar
+        when(contatoRepository.buscarPorIdCustom(id)).thenReturn(contatoDTO);
+
+        // Act
+        contatoService.deletar(id);
+
+        // Assert: Garante que a instrução de deletar no banco foi disparada
+        verify(contatoRepository, times(1)).deletarPorIdCustom(id);
+    }
+
 }

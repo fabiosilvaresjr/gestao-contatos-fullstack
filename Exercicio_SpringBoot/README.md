@@ -35,12 +35,20 @@ O sistema utiliza controle de acesso baseado em Roles (`ADMIN` e `USER`). Todas 
 
 ## Tratamento Global de Exceções
 
-A API utiliza um interceptador global (`@RestControllerAdvice`) para capturar erros e devolver respostas JSON padronizadas e amigáveis ao cliente, evitando a quebra do servidor.
+A API utiliza um interceptador global (`@RestControllerAdvice`) para capturar erros em tempo de execução e devolver respostas JSON padronizadas e amigáveis ao cliente, garantindo estabilidade e segurança.
 
-* **Erro 400 (Bad Request):** Quando dados obrigatórios não são enviados no JSON (validados via `@Valid`), a API retorna uma lista com os campos inválidos.
-* **Erro 404 (Not Found):** Buscas por IDs inexistentes são interceptadas (`EntityNotFoundException`) e retornam o status 404 automaticamente.
+* **Erro 400 (Bad Request):** Quando dados obrigatórios não são enviados ou chegam mal formatados no JSON (validados via `@Valid`), a API intercepta a `MethodArgumentNotValidException` e retorna uma lista limpa contendo apenas o nome do campo e a mensagem de validação.
+* **Erro 403 (Forbidden):** Intercepta `AccessDeniedException` quando um usuário com perfil `USER` tenta acessar uma rota protegida (exclusiva para `ADMIN`), retornando uma mensagem clara de "Acesso Negado".
+* **Erro 404 (Not Found):** Buscas por IDs ou recursos inexistentes são capturadas (`EntityNotFoundException`) e resolvidas silenciosamente para um status 404 vazio.
+* **Erro 500 (Internal Server Error):** Um *catch-all* para exceções genéricas não mapeadas. Evita expor *stack traces* e detalhes da infraestrutura ao cliente, retornando um payload amigável informando erro interno.
 
 ---
+
+## Testes Automatizados
+
+O projeto conta com uma suíte de testes automatizados focada em garantir a qualidade e resiliência da aplicação. Os testes foram estruturados seguindo o padrão **AAA (Arrange, Act, Assert)**.
+
+* **Testes Unitários (Regra de Negócio):** Utilizando **JUnit 5**, **Mockito** e **AssertJ**, as camadas de serviço (`ContatoService`, `GrupoService`, `EtiquetaService`) são testadas de forma isolada. Foram implementados Mocks (`@Mock`, `@InjectMocks`)  e o tratamento de exceções (ex: `EntityNotFoundException` para IDs inexistentes) funcionem corretamente sem a necessidade de instanciar o contexto do Spring ou acessar o banco de dados real.
 
 ## Como executar o projeto localmente
 
