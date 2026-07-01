@@ -3,11 +3,13 @@ package com.example.exercicio_springboot.service;
 import com.example.exercicio_springboot.dto.ContatoDTO;
 import com.example.exercicio_springboot.entity.Contato;
 import com.example.exercicio_springboot.repository.ContatoRepository;
-import jakarta.persistence.EntityNotFoundException; // <-- Importante adicionar isso!
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class ContatoService {
@@ -19,7 +21,11 @@ public class ContatoService {
     }
 
     public ContatoDTO salvar(ContatoDTO dto) {
-        // O @Valid do Controller cuida para nao ser nulo ou vazio
+        // O @Valid do Controller cuida para nao ser nulo ou vazio, mas coloquei dupla verificação
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome é obrigatório e não pode estar em branco.");
+        }
+
         Contato contato = new Contato();
         contato.setNome(dto.getNome());
         contato.setFavorito(dto.getFavorito() != null ? dto.getFavorito() : false);
