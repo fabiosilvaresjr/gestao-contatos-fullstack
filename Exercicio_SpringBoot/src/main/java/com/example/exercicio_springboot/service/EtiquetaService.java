@@ -21,6 +21,10 @@ public class EtiquetaService {
 
     // Criar (POST)
     public EtiquetaDTO salvar(EtiquetaDTO dto) {
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome é obrigatório e não pode estar em branco.");
+        }
+
         Etiqueta etiqueta = new Etiqueta();
         etiqueta.setNome(dto.getNome());
 

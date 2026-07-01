@@ -19,6 +19,10 @@ public class GrupoService {
     }
 
     public GrupoDTO salvar(GrupoDTO dto) {
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome é obrigatório e não pode estar em branco.");
+        }
+
         Grupo grupo = new Grupo();
         grupo.setNome(dto.getNome());
 
