@@ -83,7 +83,7 @@ class ContatoServiceTest {
 
         // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> {
-            contatoService.buscarPorId(99L); // Altere para o nome do seu método
+            contatoService.buscarPorId(99L); // Altere para o nome do seu metodo
         });
 
         // Verifica se tentou buscar no banco
