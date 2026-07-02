@@ -31,7 +31,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() //depois de ter um primeiro usuário, apenas ADM pode registrar
-                        .requestMatchers(HttpMethod.POST, "/contatos", "/contato/*").hasRole("ADMIN") // rota protegida
+                        .requestMatchers(HttpMethod.POST, "/contatos", "/contatos/*").hasRole("ADMIN") // rota protegida
                         .requestMatchers(HttpMethod.POST, "/grupos/*").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/etiquetas/*").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/contatos/**").hasRole("ADMIN")

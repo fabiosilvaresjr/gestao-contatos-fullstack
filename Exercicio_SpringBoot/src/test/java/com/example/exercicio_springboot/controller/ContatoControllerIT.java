@@ -40,7 +40,7 @@ class ContatoControllerIT {
 
         // 1. Criar um usuário ADMIN para o teste
         Map<String, String> registerRequest = Map.of(
-                "login", "admin_teste@email.com",
+                "login", "admin_teste",
                 "password", "senha123",
                 "role", "ADMIN"
         );
@@ -48,7 +48,7 @@ class ContatoControllerIT {
 
         // 2. Fazer login com esse usuário para pegar o token
         Map<String, String> loginRequest = Map.of(
-                "login", "admin_teste@email.com",
+                "login", "admin_teste",
                 "password", "senha123"
         );
 
@@ -95,4 +95,68 @@ class ContatoControllerIT {
         var contatosNoBanco = contatoRepository.listarTodosCustom();
         assertThat(contatosNoBanco).hasSize(1);
     }
+
+    @Test
+    void deveRetornar404AoBuscarContatoInexistente() {
+        // Arrange: Prepara um ID falso (Usei um UUID aleatório. Se o seu banco usar Long, troque para algo como "99999")
+        String idFalso = "99999";
+        String url = "http://localhost:" + port + "/contatos/" + idFalso;
+
+        // Arrange: Como é um GET com autenticação, precisamos montar o Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(tokenAdmin);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
+
+        // Act: Dispara o GET real usando o metodo exchange (necessário para enviar Headers no GET)
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                requestEntity,
+                String.class
+        );
+
+        // Assert: Verifica se a API respondeu estritamente com 404 Not Found
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void deveAtualizarCampoBooleanComPatchEVerificarNoBanco() {
+        // Arrange 1: Criar e salvar o contato inicial
+        com.example.exercicio_springboot.entity.Contato contato = new com.example.exercicio_springboot.entity.Contato();
+        contato.setNome("Contato para PATCH");
+        contato.setFavorito(false);
+        var contatoSalvo = contatoRepository.save(contato);
+
+        String url = "http://localhost:" + port + "/contatos/" + contatoSalvo.getId();
+
+        // Arrange 2: Configurar cabeçalhos e o motor HTTP correto para PATCH
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(tokenAdmin);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        restTemplate.getRestTemplate().setRequestFactory(new org.springframework.http.client.JdkClientHttpRequestFactory());
+
+        // Prepara o DTO ou Map com as alterações.
+        // Como seu Controller espera um ContatoDTO, mandamos o valor atualizado
+        Map<String, Object> patchRequest = Map.of(
+                "nome", "Contato para PATCH",
+                "favorito", true
+        );
+        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(patchRequest, headers);
+
+        // Act: Dispara o PATCH esperando Void (exatamente o que seu Controller retorna!)
+        ResponseEntity<Void> response = restTemplate.exchange(
+                url,
+                HttpMethod.PATCH,
+                requestEntity,
+                Void.class
+        );
+
+        // Assert 1: Verifica se a API respondeu com 200 OK
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        // Assert 2: Valida se a persistência no banco funcionou de verdade
+        var contatoAtualizadoNoBanco = contatoRepository.findById(contatoSalvo.getId()).orElseThrow();
+        assertThat(contatoAtualizadoNoBanco.getFavorito()).isTrue();
+    }
+
 }

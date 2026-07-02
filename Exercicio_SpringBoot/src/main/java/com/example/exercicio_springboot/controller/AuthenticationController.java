@@ -52,7 +52,7 @@ public class AuthenticationController {
         newUsuario.setLogin(data.login());
         newUsuario.setPassword(encryptedPassword);
 
-        newUsuario.setRole(UserRole.USER);
+        newUsuario.setRole(data.role() != null ? data.role() : UserRole.USER);
 
         this.repository.save(newUsuario);
 
