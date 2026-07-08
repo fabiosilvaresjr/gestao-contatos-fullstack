@@ -40,7 +40,7 @@ public class ContatoController {
         return ResponseEntity.ok(dto); // Retorna 200
     }
 
-    // PATCH /contatos/{id} -> Retorna 200 OK (Usando PATCH conforme o exercício)
+    // PATCH /contatos/{id} -> Retorna 200 OK
     @PatchMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable Long id, @Valid @RequestBody ContatoDTO dto) {
         contatoService.atualizar(id, dto);
@@ -53,4 +53,19 @@ public class ContatoController {
         contatoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    // PATCH /contatos/{contatoId}/etiquetas/{etiquetaId} -> Associar Etiqueta
+    @PatchMapping("/{contatoId}/etiquetas/{etiquetaId}")
+    public ResponseEntity<Void> associarEtiqueta(@PathVariable Long contatoId, @PathVariable Long etiquetaId) {
+        contatoService.associarEtiqueta(contatoId, etiquetaId);
+        return ResponseEntity.ok().build(); // retorna 200 OK
+    }
+
+    // DELETE /contatos/{contatoId}/etiquetas/{etiquetaId} -> Desassociar Etiqueta
+    @DeleteMapping("/{contatoId}/etiquetas/{etiquetaId}")
+    public ResponseEntity<Void> desassociarEtiqueta(@PathVariable Long contatoId, @PathVariable Long etiquetaId) {
+        contatoService.desassociarEtiqueta(contatoId, etiquetaId);
+        return ResponseEntity.noContent().build(); // retorna 204 No Content
+    }
+
 }

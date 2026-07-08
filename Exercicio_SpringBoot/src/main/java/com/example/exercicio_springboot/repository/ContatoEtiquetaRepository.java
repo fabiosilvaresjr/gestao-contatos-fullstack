@@ -12,8 +12,8 @@ public interface ContatoEtiquetaRepository extends JpaRepository<ContatoEtiqueta
 
     @Modifying
     @Query(value = """
-        INSERT INTO contato_etiqueta (contato_id, etiqueta_id) 
-        VALUES (:contatoId, :etiquetaId)
+        INSERT INTO contato_etiqueta (contato_id, etiqueta_id, data_adicao) 
+        VALUES (:contatoId, :etiquetaId, NOW())
     """, nativeQuery = true)
     void vincularEtiquetaAoContato(@Param("contatoId") Long contatoId, @Param("etiquetaId") Long etiquetaId);
 
@@ -34,7 +34,7 @@ public interface ContatoEtiquetaRepository extends JpaRepository<ContatoEtiqueta
     """)
     void removerTodosVinculosDoContato(@Param("contatoId") Long contatoId);
 
-    // Remover TODOS os contatos de uma etiqueta (Usado logo ANTES de deletar uma etiqueta)
+    // Remover TODOS os contatos de uma etiqueta (ANTES de deletar uma etiqueta)
     @Modifying
     @Query("""
         DELETE FROM ContatoEtiqueta ce 

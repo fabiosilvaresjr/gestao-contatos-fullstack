@@ -2,7 +2,9 @@ package com.example.exercicio_springboot.service;
 
 import com.example.exercicio_springboot.dto.ContatoDTO;
 import com.example.exercicio_springboot.entity.Contato;
+import com.example.exercicio_springboot.repository.ContatoEtiquetaRepository;
 import com.example.exercicio_springboot.repository.ContatoRepository;
+import com.example.exercicio_springboot.repository.EtiquetaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,12 @@ class ContatoServiceTest {
 
     @Mock
     private ContatoRepository contatoRepository; // fictício
+
+    @Mock
+    private EtiquetaRepository etiquetaRepository;
+
+    @Mock
+    private ContatoEtiquetaRepository contatoEtiquetaRepository;
 
     @InjectMocks
     private ContatoService contatoService; // Classe teste

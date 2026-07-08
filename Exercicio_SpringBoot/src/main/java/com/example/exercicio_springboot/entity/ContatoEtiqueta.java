@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "contato_etiqueta")
@@ -25,8 +26,12 @@ public class ContatoEtiqueta {
     @JoinColumn(name = "etiqueta_id")
     private Etiqueta etiqueta;
 
+    @Column(name = "data_adicao")
+    private LocalDateTime dataAdicao;
+
     public ContatoEtiqueta(Contato contato, Etiqueta etiqueta){
         this.contato = contato;
         this.etiqueta = etiqueta;
+        this.dataAdicao = LocalDateTime.now();
     }
 }

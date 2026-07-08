@@ -37,6 +37,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE, "/contatos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/etiquetas/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/grupos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/contatos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/etiquetas/*").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/grupos/*").hasRole("ADMIN")
                         .anyRequest().authenticated()

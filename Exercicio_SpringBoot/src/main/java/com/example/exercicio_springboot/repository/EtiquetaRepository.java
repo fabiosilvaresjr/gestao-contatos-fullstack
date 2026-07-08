@@ -24,7 +24,7 @@ public interface EtiquetaRepository extends JpaRepository<Etiqueta, Long> {
     """)
     List<EtiquetaDTO> listarTodosCustom();
 
-    // Query buscar por nome
+    // Buscar por nome
     @Query("""
         select new com.example.exercicio_springboot.dto.EtiquetaDTO(
             e.id,
@@ -35,7 +35,7 @@ public interface EtiquetaRepository extends JpaRepository<Etiqueta, Long> {
     """)
     List<EtiquetaDTO> buscarPorNome(@Param("nome") String nome);
 
-    // Query para buscar por ID mapeando pro DTO
+    // Buscar por ID mapeando pro DTO
     @Query("""
         select new com.example.exercicio_springboot.dto.EtiquetaDTO(
             e.id,
@@ -46,7 +46,7 @@ public interface EtiquetaRepository extends JpaRepository<Etiqueta, Long> {
     """)
     EtiquetaDTO buscarPorIdCustom(@Param("id") Long id);
 
-    // Query atualizar dados
+    // Atualizar dados
     @Modifying
     @Query("""
         update Etiqueta e
@@ -55,9 +55,24 @@ public interface EtiquetaRepository extends JpaRepository<Etiqueta, Long> {
     """)
     int atualizarEtiqueta(@Param("id") Long id, @Param("nome") String nome);
 
-    // Query deletar
+    // Deletar
     @Modifying
     @Query("delete from Etiqueta e where e.id = :id")
     void deletarPorIdCustom(@Param("id") Long id);
+
+    // Buscar as etiquetas de um contato específico fazendo JOIN com a tabela intermediária
+    @Query("""
+        select new com.example.exercicio_springboot.dto.EtiquetaDTO(
+            e.id,
+            e.nome
+        )
+        from Etiqueta e
+        join ContatoEtiqueta ce on e.id = ce.etiqueta.id
+        where ce.contato.id = :contatoId
+    """)
+    List<EtiquetaDTO> buscarEtiquetasPorContatoId(@Param("contatoId") Long contatoId);
+
 }
+
+
 

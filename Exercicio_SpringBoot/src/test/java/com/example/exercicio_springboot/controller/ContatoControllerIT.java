@@ -1,8 +1,11 @@
 package com.example.exercicio_springboot.controller;
 
 import com.example.exercicio_springboot.dto.ContatoDTO;
+import com.example.exercicio_springboot.entity.Etiqueta;
 import com.example.exercicio_springboot.repository.ContatoRepository;
-import com.example.exercicio_springboot.repository.UsuarioRepository; // Ajuste para o nome real do seu repositório de usuários
+import com.example.exercicio_springboot.repository.UsuarioRepository;
+import com.example.exercicio_springboot.repository.EtiquetaRepository;
+import com.example.exercicio_springboot.service.ContatoService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
 
 import java.util.Map;
 
@@ -18,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 // Requisito: Sobe o Spring de verdade em uma porta aleatória para não chocar com o Tomcat local
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class ContatoControllerIT {
 
     @LocalServerPort
@@ -34,8 +40,15 @@ class ContatoControllerIT {
 
     private String tokenAdmin;
 
+    @Autowired
+    private ContatoService contatoService;
+
+    @Autowired
+    private EtiquetaRepository etiquetaRepository;
+
     @BeforeEach
     void setUp() {
+        restTemplate.getRestTemplate().setRequestFactory(new JdkClientHttpRequestFactory());
         String baseUrl = "http://localhost:" + port;
 
         // 1. Criar um usuário ADMIN para o teste
@@ -65,7 +78,7 @@ class ContatoControllerIT {
     @AfterEach
     void tearDown() {
         // Requisito: Limpar o banco após cada teste para o próximo rodar limpo
-        contatoRepository.deleteAll(); // Ajuste para o seu método de deletar tudo se necessário
+        contatoRepository.deleteAll(); // Ajuste para o seu metodo de deletar tudo se necessário
         usuarioRepository.deleteAll();
     }
 
@@ -157,6 +170,71 @@ class ContatoControllerIT {
         // Assert 2: Valida se a persistência no banco funcionou de verdade
         var contatoAtualizadoNoBanco = contatoRepository.findById(contatoSalvo.getId()).orElseThrow();
         assertThat(contatoAtualizadoNoBanco.getFavorito()).isTrue();
+    }
+
+    @Test
+    void deveAssociarEtiquetaAoContatoEVerificarNoBanco() {
+        // Criar o Contato e a Etiqueta no banco
+        ContatoDTO contatoSalvo = contatoService.salvar(new ContatoDTO(null, "João do Teste", false));
+        // Assumindo que você tenha um metodo salvar na etiquetaService, ou salve direto no repository:
+        Etiqueta etiqueta = new Etiqueta();
+        etiqueta.setNome("Cliente VIP");
+        etiqueta = etiquetaRepository.save(etiqueta);
+
+        String url = "http://localhost:" + port + "/contatos/" + contatoSalvo.getId() + "/etiquetas/" + etiqueta.getId();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(tokenAdmin);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        // Act: Dispara o PATCH para associar
+        ResponseEntity<Void> response = restTemplate.exchange(
+                url,
+                HttpMethod.PATCH,
+                requestEntity,
+                Void.class
+        );
+
+        // Assert 1: Verifica se a API respondeu com 200 OK
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        // Assert 2: Valida se a lista de etiquetas do contato agora contém essa etiqueta
+        ContatoDTO contatoAtualizado = contatoService.buscarPorId(contatoSalvo.getId());
+        assertThat(contatoAtualizado.getEtiquetas()).hasSize(1);
+        assertThat(contatoAtualizado.getEtiquetas().get(0).getNome()).isEqualTo("Cliente VIP");
+    }
+
+    @Test
+    void deveDesassociarEtiquetaDoContato() {
+        // Arrange: Prepara o terreno com contato, etiqueta e o vínculo já feito
+        ContatoDTO contatoSalvo = contatoService.salvar(new ContatoDTO(null, "Maria do Teste", true));
+        Etiqueta etiqueta = new Etiqueta();
+        etiqueta.setNome("Fornecedor");
+        etiqueta = etiquetaRepository.save(etiqueta);
+
+        // Associa manualmente para o teste ter o que deletar
+        contatoService.associarEtiqueta(contatoSalvo.getId(), etiqueta.getId());
+
+        String url = "http://localhost:" + port + "/contatos/" + contatoSalvo.getId() + "/etiquetas/" + etiqueta.getId();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(tokenAdmin);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        // Act: Dispara o DELETE para remover a associação
+        ResponseEntity<Void> response = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                requestEntity,
+                Void.class
+        );
+
+        // Assert 1: Retorno deve ser 204 No Content
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+        // Assert 2: A lista de etiquetas do contato deve estar vazia novamente
+        ContatoDTO contatoAtualizado = contatoService.buscarPorId(contatoSalvo.getId());
+        assertThat(contatoAtualizado.getEtiquetas()).isEmpty();
     }
 
 }
