@@ -1,0 +1,18 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5; /* Fundo cinza claro para destacar o card branco */
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px; /* Não deixa o card ficar muito largo no PC */
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 10px;
+}
