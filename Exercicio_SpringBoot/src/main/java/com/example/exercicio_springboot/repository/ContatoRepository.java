@@ -24,7 +24,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
     """)
     List<ContatoDTO> listarTodosCustom();
 
-    // Query buscar por nome
+    // Buscar por nome
     @Query("""
         select new com.example.exercicio_springboot.dto.ContatoDTO(
             c.id,
@@ -36,7 +36,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
     """)
     List<ContatoDTO> buscarPorNome(@Param("nome") String nome);
 
-    // Query para buscar por ID mapeando pro DTO
+    // Buscar por ID mapeando pro DTO
     @Query("""
         select new com.example.exercicio_springboot.dto.ContatoDTO(
             c.id,
@@ -48,7 +48,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
     """)
     ContatoDTO buscarPorIdCustom(@Param("id") Long id);
 
-    // Query atualizar dados
+    // Atualizar dados
     @Modifying
     @Query("""
         update Contato c
@@ -57,7 +57,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
     """)
     int atualizarContato(@Param("id") Long id, @Param("nome") String nome, @Param("favorito") Boolean favorito);
 
-    // Query deletar
+    // Deletar
     @Modifying
     @Query("delete from Contato c where c.id = :id")
     void deletarPorIdCustom(@Param("id") Long id);

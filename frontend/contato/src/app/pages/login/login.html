@@ -1,0 +1,29 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Login do Sistema</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Quando o formulário for enviado, ele chama a função onSubmit() do TypeScript -->
+      <form (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Login</mat-label>
+          <!-- O [(ngModel)] faz a ligação dupla: o que digitar aqui vai para a variável credentials.login -->
+          <input matInput name="login" [(ngModel)]="credentials.login" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" name="password" [(ngModel)]="credentials.password" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="full-width">
+          Entrar
+        </button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

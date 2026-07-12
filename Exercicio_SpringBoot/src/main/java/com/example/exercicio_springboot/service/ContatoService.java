@@ -1,12 +1,14 @@
 package com.example.exercicio_springboot.service;
 
 import com.example.exercicio_springboot.dto.ContatoDTO;
+import com.example.exercicio_springboot.dto.EtiquetaDTO;
 import com.example.exercicio_springboot.entity.Contato;
+import com.example.exercicio_springboot.repository.ContatoEtiquetaRepository;
 import com.example.exercicio_springboot.repository.ContatoRepository;
-import org.springframework.http.HttpStatus;
+import com.example.exercicio_springboot.repository.EtiquetaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -14,48 +16,50 @@ import java.util.List;
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
+    private final EtiquetaRepository etiquetaRepository;
+    private final ContatoEtiquetaRepository contatoEtiquetaRepository;
 
-    public ContatoService(ContatoRepository contatoRepository) {
+    // Injetando os novos repositórios
+    public ContatoService(ContatoRepository contatoRepository,
+                          EtiquetaRepository etiquetaRepository,
+                          ContatoEtiquetaRepository contatoEtiquetaRepository) {
         this.contatoRepository = contatoRepository;
-    }
-
-    // Regra de Negócio
-    private void validarNome(String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            // Erro 400 Bad Request
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo nome é obrigatório e não pode estar em branco.");
-        }
+        this.etiquetaRepository = etiquetaRepository;
+        this.contatoEtiquetaRepository = contatoEtiquetaRepository;
     }
 
     public ContatoDTO salvar(ContatoDTO dto) {
-        validarNome(dto.getNome()); // Valida antes de tudo
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome é obrigatório e não pode estar em branco.");
+        }
 
         Contato contato = new Contato();
         contato.setNome(dto.getNome());
-        // Favorito é default false
         contato.setFavorito(dto.getFavorito() != null ? dto.getFavorito() : false);
 
         Contato contatoSalvo = contatoRepository.save(contato);
-
         return new ContatoDTO(contatoSalvo.getId(), contatoSalvo.getNome(), contatoSalvo.getFavorito());
+    }
+
+    public ContatoDTO buscarPorId(Long id) {
+
+        ContatoDTO dto = contatoRepository.buscarPorIdCustom(id);
+        if (dto == null) {
+            throw new EntityNotFoundException("Contato não encontrado");
+        }
+
+        // Busca as etiquetas vinculadas ao contato
+        List<EtiquetaDTO> etiquetas = etiquetaRepository.buscarEtiquetasPorContatoId(id);
+        dto.setEtiquetas(etiquetas);
+
+        return dto;
     }
 
     @Transactional
     public void atualizar(Long id, ContatoDTO dto) {
-        // PATCH (validação parcial)
-        if (dto.getNome() != null) {
-            validarNome(dto.getNome());
-        }
-
         ContatoDTO contatoExistente = buscarPorId(id);
-        if (contatoExistente == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Contato não encontrado");
-        }
-
-        // Mantém o valor antigo se o novo vier nulo
         String nomeAtualizado = dto.getNome() != null ? dto.getNome() : contatoExistente.getNome();
         Boolean favoritoAtualizado = dto.getFavorito() != null ? dto.getFavorito() : contatoExistente.getFavorito();
-
         contatoRepository.atualizarContato(id, nomeAtualizado, favoritoAtualizado);
     }
 
@@ -63,15 +67,44 @@ public class ContatoService {
         return contatoRepository.listarTodosCustom();
     }
 
-    public ContatoDTO buscarPorId(Long id) {
-        return contatoRepository.buscarPorIdCustom(id);
+    @Transactional
+    public void deletar(Long id) {
+        buscarPorId(id);
+        //Primeiro removendo a tabela intermediaria apara nao impedir de apagar o contato
+        contatoEtiquetaRepository.removerTodosVinculosDoContato(id);
+
+        contatoRepository.deletarPorIdCustom(id);
+    }
+
+   //Métodos da relação com as etiquetas
+    @Transactional
+    public void associarEtiqueta(Long contatoId, Long etiquetaId) {
+        // Verifica se o contato existe (lança 404 se não)
+        buscarPorId(contatoId);
+
+        // Verifica se a etiqueta existe (lança 404 se não)
+        EtiquetaDTO etiqueta = etiquetaRepository.buscarPorIdCustom(etiquetaId);
+        if (etiqueta == null) {
+            throw new EntityNotFoundException("Etiqueta não encontrada");
+        }
+
+        // Evitar associação duplicada
+        List<EtiquetaDTO> etiquetasDoContato = etiquetaRepository.buscarEtiquetasPorContatoId(contatoId);
+        boolean jaPossui = etiquetasDoContato.stream().anyMatch(e -> e.getId().equals(etiquetaId));
+        if (jaPossui) {
+            throw new IllegalArgumentException("O contato já possui esta etiqueta associada.");
+        }
+
+        // Dando certo, faz a relação
+        contatoEtiquetaRepository.vincularEtiquetaAoContato(contatoId, etiquetaId);
     }
 
     @Transactional
-    public void deletar(Long id) {
-        if (buscarPorId(id) == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Contato não encontrado");
-        }
-        contatoRepository.deletarPorIdCustom(id);
+    public void desassociarEtiqueta(Long contatoId, Long etiquetaId) {
+        // Garante que o contato existe
+        buscarPorId(contatoId);
+
+        // Executa a query manual de DELETE na tabela intermediária
+        contatoEtiquetaRepository.desvincularEtiquetaDoContato(contatoId, etiquetaId);
     }
 }

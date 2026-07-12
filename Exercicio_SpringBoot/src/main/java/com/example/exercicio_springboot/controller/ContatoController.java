@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contatos")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ContatoController {
 
     private final ContatoService contatoService;
@@ -21,7 +22,7 @@ public class ContatoController {
 
     // POST /contatos -> Retorna 201 Created
     @PostMapping
-    public ResponseEntity<ContatoDTO> criar(@RequestBody ContatoDTO dto) {
+    public ResponseEntity<ContatoDTO> criar(@RequestBody @Valid ContatoDTO dto) {
         ContatoDTO contatoSalvo = contatoService.salvar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(contatoSalvo);
     }
@@ -32,17 +33,14 @@ public class ContatoController {
         return ResponseEntity.ok(contatoService.listarTodos()); //pode porque vai lsitar os dto do service
     }
 
-    // GET /contatos/{id} -> Retorna 200 OK ou 404 Not Found
+    // GET /contatos/{id} -> Retorna 200 OK, ou exception faz o 404 Not Found
     @GetMapping("/{id}")
     public ResponseEntity<ContatoDTO> buscarPorId(@PathVariable Long id) {
         ContatoDTO dto = contatoService.buscarPorId(id);
-        if (dto == null) {
-            return ResponseEntity.notFound().build(); // Retorna 404
-        }
         return ResponseEntity.ok(dto); // Retorna 200
     }
 
-    // PATCH /contatos/{id} -> Retorna 200 OK (Usando PATCH conforme o exercício)
+    // PATCH /contatos/{id} -> Retorna 200 OK
     @PatchMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable Long id, @Valid @RequestBody ContatoDTO dto) {
         contatoService.atualizar(id, dto);
@@ -55,4 +53,19 @@ public class ContatoController {
         contatoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    // PATCH /contatos/{contatoId}/etiquetas/{etiquetaId} -> Associar Etiqueta
+    @PatchMapping("/{contatoId}/etiquetas/{etiquetaId}")
+    public ResponseEntity<Void> associarEtiqueta(@PathVariable Long contatoId, @PathVariable Long etiquetaId) {
+        contatoService.associarEtiqueta(contatoId, etiquetaId);
+        return ResponseEntity.ok().build(); // retorna 200 OK
+    }
+
+    // DELETE /contatos/{contatoId}/etiquetas/{etiquetaId} -> Desassociar Etiqueta
+    @DeleteMapping("/{contatoId}/etiquetas/{etiquetaId}")
+    public ResponseEntity<Void> desassociarEtiqueta(@PathVariable Long contatoId, @PathVariable Long etiquetaId) {
+        contatoService.desassociarEtiqueta(contatoId, etiquetaId);
+        return ResponseEntity.noContent().build(); // retorna 204 No Content
+    }
+
 }

@@ -1,0 +1,16 @@
+import { Component, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, MatCardModule, MatInputModule, MatButtonModule],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('contato');
+}
+class AppComponent {
+  title = 'contato';
+}
