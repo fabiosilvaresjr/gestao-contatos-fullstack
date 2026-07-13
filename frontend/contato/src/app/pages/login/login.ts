@@ -18,10 +18,10 @@ import { LoginRequest } from '../../models/auth.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './login.html',
+  styleUrl: './login.css',
 })
 export class LoginComponent {
   // VGuarda o que o usuário digitar
@@ -30,7 +30,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar // Ferramenta do Material para mostrar alertas (pop-ups)
+    private snackBar: MatSnackBar, // Ferramenta do Material para mostrar alertas (pop-ups)
   ) {}
 
   onSubmit() {
@@ -43,7 +43,7 @@ export class LoginComponent {
       error: () => {
         // Se o Spring Boot der erro (ex: 403), mostra um alerta vermelho na tela
         this.snackBar.open('Login ou senha incorretos!', 'Fechar', { duration: 3000 });
-      }
+      },
     });
   }
 }

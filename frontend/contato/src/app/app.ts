@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-root',

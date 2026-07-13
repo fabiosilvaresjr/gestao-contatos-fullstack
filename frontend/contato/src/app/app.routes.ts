@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { HomeComponent } from './pages/home/home.component';
-import { authGuard } from './guards/auth.guard';
+import { LoginComponent } from './pages/login/login';
+import { Home } from './pages/home/home';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
-  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'home', component: Home, canActivate: [authGuard] },
 
   // localhost:4200 -> redireciona para o login
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   // localhost:4200/ uam que nao existe -> redireciona para o login
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/login' },
 ];
