@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContatoDialog } from './contato-dialog';
+import { ContatoForm } from './contato-form';
 
-describe('ContatoDialog', () => {
-  let component: ContatoDialog;
-  let fixture: ComponentFixture<ContatoDialog>;
+describe('ContatoForm', () => {
+  let component: ContatoForm;
+  let fixture: ComponentFixture<ContatoForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContatoDialog],
+      imports: [ContatoForm],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ContatoDialog);
+    fixture = TestBed.createComponent(ContatoForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

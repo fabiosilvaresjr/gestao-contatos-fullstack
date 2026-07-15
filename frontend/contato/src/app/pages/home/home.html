@@ -39,14 +39,14 @@
 
       <div class="page-header">
         <h2>Meus Contatos</h2>
-        <button mat-raised-button color="primary" (click)="abrirModalNovo()">
+        <button mat-raised-button color="primary" routerLink="/novo-contato">
           <mat-icon>add</mat-icon> Novo Contato
         </button>
       </div>
 
       <!-- Aqui está o componente que abre e fecha ao clicar -->
       <mat-accordion>
-        <mat-expansion-panel [expanded]="true"> <!-- expanded=true faz ele já nascer aberto -->
+        <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon>list</mat-icon> Lista de Contatos Salvos

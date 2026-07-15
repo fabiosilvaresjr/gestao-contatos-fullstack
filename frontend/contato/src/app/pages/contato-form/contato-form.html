@@ -1,0 +1,72 @@
+<div class="page-container">
+
+  <div class="page-header">
+    <h2>Novo Diagnóstico de Contato</h2>
+    <p>Preencha os dados abaixo para adicionar um novo contato ao seu painel de gestão.</p>
+  </div>
+
+  <form [formGroup]="formContato">
+    <!-- Acordeão que agrupa os painéis -->
+    <mat-accordion multi="true">
+
+      <!-- Painel 1: Dados Pessoais -->
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon color="primary">badge</mat-icon>
+            Identificação do Contato
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="flex-field">
+            <mat-label>Nome Completo *</mat-label>
+            <input matInput formControlName="nome" placeholder="Ex: Fabio Almeida">
+            <mat-error *ngIf="formContato.get('nome')?.hasError('required')">
+              O nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-field">
+            <mat-label>Celular</mat-label>
+            <input matInput formControlName="celular" placeholder="Ex: (61) 99999-9999">
+            <mat-icon matSuffix>smartphone</mat-icon>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+
+      <!-- Painel 2: Organização -->
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon color="primary">folder_open</mat-icon>
+            Organização e Preferências
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="flex-field">
+            <mat-label>Grupo (Ex: Família, Trabalho)</mat-label>
+            <input matInput formControlName="grupos">
+          </mat-form-field>
+        </div>
+
+        <div class="checkbox-container">
+          <mat-checkbox formControlName="favorito" color="primary">
+            Marcar como Contato Favorito
+          </mat-checkbox>
+        </div>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <!-- Rodapé com Botões -->
+    <div class="form-actions">
+      <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+      <button mat-raised-button color="primary" type="button" (click)="salvar()" [disabled]="formContato.invalid">
+        Salvar Contato
+      </button>
+    </div>
+  </form>
+
+</div>
