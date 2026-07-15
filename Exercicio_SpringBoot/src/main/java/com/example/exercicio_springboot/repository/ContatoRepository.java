@@ -18,6 +18,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
         select new com.example.exercicio_springboot.dto.ContatoDTO(
             c.id,
             c.nome,
+            c.celular,
             c.favorito
         )
         from Contato c
@@ -29,6 +30,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
         select new com.example.exercicio_springboot.dto.ContatoDTO(
             c.id,
             c.nome,
+            c.celular,
             c.favorito
         )
         from Contato c
@@ -41,6 +43,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
         select new com.example.exercicio_springboot.dto.ContatoDTO(
             c.id,
             c.nome,
+            c.celular,
             c.favorito
         )
         from Contato c
@@ -52,7 +55,7 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
     @Modifying
     @Query("""
         update Contato c
-        set c.nome = :nome, c.favorito = :favorito
+        set c.nome = :nome, c.celular = :celular, c.favorito = :favorito
         where c.id = :id
     """)
     int atualizarContato(@Param("id") Long id, @Param("nome") String nome, @Param("favorito") Boolean favorito);

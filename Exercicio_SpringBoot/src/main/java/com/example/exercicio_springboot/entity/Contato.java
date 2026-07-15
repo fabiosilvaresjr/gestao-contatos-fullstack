@@ -20,6 +20,9 @@ public class Contato {
 
     private String nome;
 
+    @Column(name = "celular")
+    private String celular;
+
     private Boolean favorito = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

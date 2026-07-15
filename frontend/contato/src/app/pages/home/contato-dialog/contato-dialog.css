@@ -1,0 +1,16 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  min-width: 300px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.checkbox-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

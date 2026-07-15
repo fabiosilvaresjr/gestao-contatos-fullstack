@@ -35,10 +35,11 @@ public class ContatoService {
 
         Contato contato = new Contato();
         contato.setNome(dto.getNome());
+        contato.setCelular(dto.getCelular());
         contato.setFavorito(dto.getFavorito() != null ? dto.getFavorito() : false);
 
         Contato contatoSalvo = contatoRepository.save(contato);
-        return new ContatoDTO(contatoSalvo.getId(), contatoSalvo.getNome(), contatoSalvo.getFavorito());
+        return new ContatoDTO(contatoSalvo.getId(), contatoSalvo.getNome(), contatoSalvo.getCelular(), contatoSalvo.getFavorito());
     }
 
     public ContatoDTO buscarPorId(Long id) {

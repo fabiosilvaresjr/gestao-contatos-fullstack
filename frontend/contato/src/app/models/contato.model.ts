@@ -1,6 +1,7 @@
 export interface Contato {
   id?: number;
   nome: string;
+  celular: string;
   favorito: boolean;
   etiquetas?: Etiqueta[];
 }

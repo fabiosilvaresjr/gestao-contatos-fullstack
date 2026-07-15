@@ -87,7 +87,7 @@ class ContatoControllerIT {
         String baseUrl = "http://localhost:" + port + "/contatos";
 
         // Arrange: Prepara o JSON do contato
-        ContatoDTO novoContato = new ContatoDTO(null, "Carlos Eduardo", false);
+        ContatoDTO novoContato = new ContatoDTO(null, "Carlos Eduardo", "61999999999", false);
 
         // Arrange: Configura o cabeçalho HTTP com o Bearer Token obtido no setUp
         HttpHeaders headers = new HttpHeaders();
@@ -175,7 +175,7 @@ class ContatoControllerIT {
     @Test
     void deveAssociarEtiquetaAoContatoEVerificarNoBanco() {
         // Criar o Contato e a Etiqueta no banco
-        ContatoDTO contatoSalvo = contatoService.salvar(new ContatoDTO(null, "João do Teste", false));
+        ContatoDTO contatoSalvo = contatoService.salvar(new ContatoDTO(null, "João do Teste", "61999999999", false));
         // Assumindo que você tenha um metodo salvar na etiquetaService, ou salve direto no repository:
         Etiqueta etiqueta = new Etiqueta();
         etiqueta.setNome("Cliente VIP");
@@ -207,7 +207,7 @@ class ContatoControllerIT {
     @Test
     void deveDesassociarEtiquetaDoContato() {
         // Arrange: Prepara o terreno com contato, etiqueta e o vínculo já feito
-        ContatoDTO contatoSalvo = contatoService.salvar(new ContatoDTO(null, "Maria do Teste", true));
+        ContatoDTO contatoSalvo = contatoService.salvar(new ContatoDTO(null, "Maria do Teste", "61999999999", true));
         Etiqueta etiqueta = new Etiqueta();
         etiqueta.setNome("Fornecedor");
         etiqueta = etiquetaRepository.save(etiqueta);
