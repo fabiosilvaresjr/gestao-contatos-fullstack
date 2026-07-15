@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
     MatListModule,
     MatExpansionModule,
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -51,6 +51,21 @@ export class Home implements OnInit {
         console.error('Erro ao buscar contatos no banco', erro);
       },
     });
+  }
+
+  excluir(id: number) {
+    // Confirm já é da web
+    if (confirm('Tem certeza que deseja excluir este contato?')) {
+      this.contatoService.deletar(id).subscribe({
+        next: () => {
+          console.log('Contato excluído com sucesso!');
+          this.carregarContatos();
+        },
+        error: (erro: any) => {
+          console.error('Erro ao excluir o contato', erro);
+        },
+      });
+    }
   }
 
   sair() {
